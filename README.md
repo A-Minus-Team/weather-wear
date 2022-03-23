@@ -11,7 +11,7 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-[Description of your app]
+Weather Wear is a lifestyle app that recommends an outfit to the user based off the weather forecast for that day. Weather Wear also considers what the user has worn recently, the size of their wardrobe, and what colors go together the best.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
