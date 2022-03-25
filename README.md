@@ -43,6 +43,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 * Block certain outfits so you won't get that combination ever
 * Specific weather details (hour by hour)
 * Add support for shoes, socks, hats
+* Favorite outfits in homepage + wardrobe
 
 ### 2. Screen Archetypes
 
@@ -54,6 +55,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 * Edit Recommended Outfit
 * Wardrobe
    * Add clothes
+   * Favorited outfits
 * Settings
    * Adjust location
 * User profile
