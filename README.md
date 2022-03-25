@@ -41,32 +41,47 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 * Favorite certain outfits you like
 * Favorite outfits will be recommended 
 * Block certain outfits so you won't get that combination ever
+* Specific weather details (hour by hour)
 
 ### 2. Screen Archetypes
 
-* [list first screen here]
-   * [list associated required story here]
-   * ...
-* [list second screen here]
-   * [list associated required story here]
-   * ...
+* Login
+* Register
+* Homepage
+   * Weather
+   * Recommended outfit
+* Edit Recommended Outfit
+* Wardrobe
+   * Add clothes
+* Settings
+   * Adjust location
+* User profile
+   * Stat display
+      * Daily login counter
+      * Does the user dress cold/warm?
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
+* Homepage
+* Wardrobe
+* User profile
+   * Settings
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Forced Log-in -> Account creation if no log in is available
+   * Leads to Homepage
+* Homepage
+   * Leads to Edit Recommended Outfit
+   * Leads to Specific weather detail
+* Wardrobe
+   * Leads to outfit upload
+* Profile
+   * Leads to user profile
+* Settings
+   * Leads to app settings
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
