@@ -15,12 +15,12 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Lifestyle
+- **Mobile:** Our app will first be developed for mobile but will have room to expand to desktop.
+- **Story:** Analyzes users clothing choices and the current weather to recommend users fashion and weather appropriate clothing choices,
+- **Market:** Any indivudual that wears can use the app.
+- **Habit:** Our users should use this app as part of their daily morning routine.
+- **Scope:** First we'll start with recommending outfits. In the future we can recommend clothes from online shops that users do not own yet. 
 
 ## Product Spec
 
