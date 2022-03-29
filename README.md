@@ -90,7 +90,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://imgur.com/a/5kTDX6p" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
