@@ -1,0 +1,4 @@
+Property | Type | Description
+userProfile | pointer to user | image of profile
+image | File | image that user post/uploaded
+likesCount | number | number of times a combo is liked
