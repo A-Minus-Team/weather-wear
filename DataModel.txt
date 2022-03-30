@@ -3,3 +3,5 @@ userProfile | pointer to user | image of profile
 image | File | image that user post/uploaded
 likesCount | number | number of times a combo is liked
 dislikesCount | number | number of times a combo is disliked
+outfitType | String | whether its a shirt/pant
+lastWorn | DateTime | when an outfit was last worn
