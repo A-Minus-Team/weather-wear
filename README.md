@@ -89,13 +89,13 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
    * Leads to app settings
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-![PXL_20220325_151704074](https://user-images.githubusercontent.com/76235043/160689780-86365470-e499-4842-b668-aa526b82d2b8.png)
-
+![IMG_3375](https://user-images.githubusercontent.com/50147938/160742246-edd3316a-093b-48bd-842b-ace2aabb7c91.jpg)
 
 ### [BONUS] Digital Wireframes & Mockups
+![unknown](https://user-images.githubusercontent.com/50147938/160742347-91a7f921-794d-4548-83b6-bf7ede4a8bd2.png)
 
 ### [BONUS] Interactive Prototype
+![weatherware](https://user-images.githubusercontent.com/50147938/160742062-0eb9cdf1-139a-441c-81c0-aad69f036498.gif)
 
 ## Schema 
 [This section will be completed in Unit 9]
