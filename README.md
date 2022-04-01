@@ -99,7 +99,16 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+| Property | Type | Description |
+| userProfile | pointer to user | image of profile |
+| image | File | image that user post/uploaded |
+| likesCount | number | number of times an outfit is liked |
+| dislikesCount | number | number of times an outfit is disliked |
+| shirt | String | outfit type: shirt |
+| pant | String | outfit type: pants |
+| lastWorn | DateTime | when an outfit was last worn |
+| user | String | username |
+| password | String | user password |
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
