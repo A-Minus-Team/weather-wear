@@ -29,7 +29,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 **Required Must-have Stories**
 
 * Login
-* Create Account
+* Register
 * Homepage where you can view weather and reccomended outfit
 * 7-day forecast and hour by hour weather breakdown
 * Ability to change reccomended outfit
