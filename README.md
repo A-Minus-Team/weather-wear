@@ -100,6 +100,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 [This section will be completed in Unit 9]
 ### Models
 | Property | Type | Description |
+| --- | --- | --- |
 | userProfile | pointer to user | image of profile |
 | image | File | image that user post/uploaded |
 | likesCount | number | number of times an outfit is liked |
