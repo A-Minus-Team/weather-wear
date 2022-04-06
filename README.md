@@ -111,6 +111,19 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 | user | String | username |
 | password | String | user password |
 ### Networking
+```swift
+         let query = PFQuery(className:"Post")
+         query.whereKey("author", equalTo: currentUser)
+         query.order(byDescending: "createdAt")
+         query.findObjectsInBackground { (shirts: [PFObject]?, error: Error?) in
+            if let error = error { 
+               print(error.localizedDescription)
+            } else if let shirts = shirts {
+               print("Successfully retrieved \(shirts.count) shirts.")
+           // TODO: Do something with shirts...
+            }
+         }
+```
 - Wardrobe Screen
       - (Read/GET) Query all clothing saved by user
       - (Create/POST) Create a new shirt
