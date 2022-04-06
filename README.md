@@ -112,27 +112,24 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 | password | String | user password |
 ### Networking
 - Wardrobe Screen
-      - (Read/GET) Query all posts where user is author
-         ```swift
-         let query = PFQuery(className:"Post")
-         query.whereKey("author", equalTo: currentUser)
-         query.order(byDescending: "createdAt")
-         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
-            if let error = error { 
-               print(error.localizedDescription)
-            } else if let posts = posts {
-               print("Successfully retrieved \(posts.count) posts.")
-           // TODO: Do something with posts...
-            }
-         }
-         ```
-      - (Create/POST) Create a new like on a post
-      - (Delete) Delete existing like
-      - (Create/POST) Create a new comment on a post
-      - (Delete) Delete existing comment
-   - Create Post Screen
-      - (Create/POST) Create a new post object
-   - Profile Screen
+      - (Read/GET) Query all clothing saved by user
+      - (Create/POST) Create a new shirt
+      - (Delete) Delete an existing shirt
+      - (Create/POST) Create a new pair of pants
+      - (Delete) Delete an existing pair of pants
+- Homepage
+      - (Create/POST) Create a new liked outfit
+      - (Delete) Delete an newly liked outfit
+      - (Create/POST) Create a new disliked outfit
+      - (Delete) Delete a newly disliked outfit
+- Liked
+      - (Read/GET) Read all liked outfits
+      - (Delete) Delete an existing like
+- Disliked
+      - (Create/POST) Create a new disliked outfit
+      - (Delete) Delete an existing disliked outfit
+- Profile Screen
       - (Read/GET) Query logged in user object
       - (Update/PUT) Update user profile image
+      - (Update/PUT) Update username
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
