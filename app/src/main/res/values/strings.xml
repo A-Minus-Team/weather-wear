@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Parsagram</string>
+    <string name="app_name">WeatherWear</string>
     <string name="text_home" />
     <string name="text_add" />
     <string name="text_account" />
