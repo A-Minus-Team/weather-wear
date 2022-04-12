@@ -146,3 +146,7 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
       - (Update/PUT) Update user profile image
       - (Update/PUT) Update username
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+
+## Creating the Database and User Login/sign up page
+<img src='http://g.recordit.co/kvwL2156Cn.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
