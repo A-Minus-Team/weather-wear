@@ -1,19 +1,24 @@
 package com.example.parsagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnRegister;
+    private TextView textSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.tvUsername);
         etPassword = findViewById(R.id.tvPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
+
+        textSignup = findViewById(R.id.textSignup);
+
+        String text = "Don't have an account? Sign up here";
+
+        SpannableString ss = new SpannableString(text);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,34 +57,21 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "onClick register button");
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                registerUser(username, password);
-            }
-        });
-    }
 
-    private void registerUser(String username, String password) {
-        Log.i(TAG, "Attempting login user: " + username);
-        // Create the ParseUser
-        ParseUser user = new ParseUser();
-        // Set core properties
-        user.setUsername(username);
-        user.setPassword(password);
-        user.signUpInBackground(new SignUpCallback() {
+        ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
-            public void done(ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Error with login", e);
-                    return;
-                }
-                Toast.makeText(LoginActivity.this, "Signed up!", Toast.LENGTH_SHORT).show();
+            public void onClick(@NonNull View view) {
+                goSignupActivity();
+                Toast.makeText(LoginActivity.this, "Redirecting...", Toast.LENGTH_SHORT).show();
+
             }
-        });
+        };
+
+        ss.setSpan(clickableSpan, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textSignup.setText(ss);
+        textSignup.setMovementMethod(LinkMovementMethod.getInstance());
+
+
     }
 
     private void loginUser(String username, String password) {
@@ -94,6 +92,12 @@ public class LoginActivity extends AppCompatActivity {
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
+    }
+
+    private void goSignupActivity(){
+        Intent newActivity = new Intent(this, SignupActivity.class);
+        startActivity(newActivity);
         finish();
     }
 }
