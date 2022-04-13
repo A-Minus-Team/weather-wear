@@ -28,12 +28,12 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 **Required Must-have Stories**
 
-* Login
-* Register
-* Homepage where you can view weather and reccomended outfit
+* ~~Login~~
+* ~~Register~~
+* ~~Homepage where you can ~~view weather ~~and reccomended outfit~~
 * 7-day forecast and hour by hour weather breakdown
 * Ability to change reccomended outfit
-* Upload new clothes
+* ~~Upload new clothes~~
 
 **Optional Nice-to-have Stories**
 
@@ -47,14 +47,14 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 ### 2. Screen Archetypes
 
-* Login
-* Register
-* Homepage
+* ~~Login~~
+* ~~Register~~
+* ~~Homepage~~
    * Weather
-   * Recommended outfit
+   * ~~Recommended outfit~~
 * Edit Recommended Outfit
 * Wardrobe
-   * Add clothes
+   * ~~Add clothes~~
    * Create outfit
    * Favorited outfits
 * Settings
