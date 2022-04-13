@@ -150,3 +150,6 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 ## Creating the Database and User Login/sign up page
 <img src='http://g.recordit.co/jz6r6K27lU.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+## Homepage
+![](gifs/milestone_1_homepage.gif)
