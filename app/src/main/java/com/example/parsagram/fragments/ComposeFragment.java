@@ -40,6 +40,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -48,10 +49,12 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String TAG = "ComposeFragment";
-    //private EditText etDescription;
+    private String descriptionL;
+    private String descriptionC;
+    private String descriptionT;
     private Button btnCaptureImage;
     private Button btnSubmit;
-    //private Button btnLogout;
+    private Button btnLogout;
     private ImageView ivPostImage;
     private ProgressBar pb;
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -76,11 +79,13 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
-        //etDescription = view.findViewById(R.id.etDescription);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         pb = (ProgressBar) view.findViewById(R.id.pbLoading);
+        descriptionL = "";
+        descriptionT = "";
+        descriptionC = "";
         Spinner spinLength = view.findViewById(R.id.spnLength);
         spinLength.setOnItemSelectedListener(this);
         Spinner spinThick = view.findViewById(R.id.spnThick);
@@ -88,14 +93,14 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
         Spinner spinColor = view.findViewById(R.id.spnColor);
         spinColor.setOnItemSelectedListener(this);
 
-        //btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
-        /**btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logOut();
             }
-        });*/
+        });
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,17 +112,16 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String description = etDescription.getText().toString();
-                /**if (description.isEmpty()) {
+                if (descriptionL.isEmpty() && descriptionC.isEmpty() && descriptionT.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
                     return;
-                }*/
+                }
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
                     Toast.makeText(getContext(), "Picture is needed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(currentUser, photoFile);/**description,*/
+                savePost(descriptionL + " " + descriptionT + " " + descriptionC, currentUser, photoFile);
             }
         });
 
@@ -199,10 +203,10 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
         return file;
     }
 
-    /**description,*/ private void savePost(ParseUser currentUser, File photoFile) {
+    private void savePost(String description, ParseUser currentUser, File photoFile) {
         pb.setVisibility(ProgressBar.VISIBLE);
         Post post = new Post();
-        //post.setDescription(description);
+        post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
@@ -229,23 +233,35 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch(view.getId()){
+        Log.i(TAG, adapterView.getItemAtPosition(i).toString());
+        String option = adapterView.getItemAtPosition(i).toString();
+        if (Arrays.asList(thickArr).contains(option))
+            descriptionT = option;
+        if (Arrays.asList(lengthArr).contains(option))
+            descriptionL = adapterView.getItemAtPosition(i).toString();
+        if(Arrays.asList(colorArr).contains(option))
+            descriptionT = adapterView.getItemAtPosition(i).toString();
+
+        /**switch(0){
             case R.id.spnLength:
                 Toast.makeText(getContext(),
                         lengthArr[i],
                         Toast.LENGTH_LONG)
                         .show();
+                description = lengthArr[i];
             case R.id.spnThick:
                 Toast.makeText(getContext(),
                         thickArr[i],
                         Toast.LENGTH_LONG)
                         .show();
+                description = thickArr[i];
             case R.id.spnColor:
                 Toast.makeText(getContext(),
                         colorArr[i],
                         Toast.LENGTH_LONG)
                         .show();
-        }
+                description = colorArr[i];
+        }*/
     }
 
 
