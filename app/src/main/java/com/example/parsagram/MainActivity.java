@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         //queryPosts();
 
 
-
-
         bottomNavigationView.setOnItemSelectedListener(
                 new NavigationBarView.OnItemSelectedListener() {
                     @Override
