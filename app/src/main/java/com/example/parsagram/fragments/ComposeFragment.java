@@ -2,6 +2,7 @@ package com.example.parsagram.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,10 +19,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
@@ -39,19 +43,23 @@ import java.io.File;
 import java.util.List;
 
 
-public class ComposeFragment extends Fragment {
+public class ComposeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String TAG = "ComposeFragment";
-    private EditText etDescription;
+    //private EditText etDescription;
     private Button btnCaptureImage;
     private Button btnSubmit;
-    private Button btnLogout;
+    //private Button btnLogout;
     private ImageView ivPostImage;
     private ProgressBar pb;
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
+    String[] lengthArr = { "None", "Short", "Long"};
+    String[] thickArr = { "Thin", "Regular", "Thick"};
+    String[] colorArr = { "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Brown", "White"};
+
     File photoFile;
 
     public ComposeFragment() {
@@ -68,19 +76,26 @@ public class ComposeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
-        etDescription = view.findViewById(R.id.etDescription);
+        //etDescription = view.findViewById(R.id.etDescription);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         pb = (ProgressBar) view.findViewById(R.id.pbLoading);
-        btnLogout = view.findViewById(R.id.btnLogout);
+        Spinner spinLength = view.findViewById(R.id.spnLength);
+        spinLength.setOnItemSelectedListener(this);
+        Spinner spinThick = view.findViewById(R.id.spnThick);
+        spinThick.setOnItemSelectedListener(this);
+        Spinner spinColor = view.findViewById(R.id.spnColor);
+        spinColor.setOnItemSelectedListener(this);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        //btnLogout = view.findViewById(R.id.btnLogout);
+
+        /**btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logOut();
             }
-        });
+        });*/
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,19 +107,47 @@ public class ComposeFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String description = etDescription.getText().toString();
-                if (description.isEmpty()) {
+                //String description = etDescription.getText().toString();
+                /**if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
                     Toast.makeText(getContext(), "Picture is needed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
+                savePost(currentUser, photoFile);/**description,*/
             }
         });
+
+        ArrayAdapter adL = new ArrayAdapter(getContext(),
+                android.R.layout.simple_spinner_item,
+                lengthArr);
+        ArrayAdapter adT = new ArrayAdapter(getContext(),
+                android.R.layout.simple_spinner_item,
+                thickArr);
+        ArrayAdapter adC = new ArrayAdapter(getContext(),
+                android.R.layout.simple_spinner_item,
+                colorArr);
+
+        // set simple layout resource file
+        // for each item of spinner
+        adL.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+        adT.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+        adC.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+
+        // Set the ArrayAdapter (ad) data on the
+        // Spinner which binds data to spinner
+        spinLength.setAdapter(adL);
+        spinThick.setAdapter(adT);
+        spinColor.setAdapter(adC);
     }
     private void launchCamera() {
         // create Intent to take a picture and return control to the calling application
@@ -156,10 +199,10 @@ public class ComposeFragment extends Fragment {
         return file;
     }
 
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
+    /**description,*/ private void savePost(ParseUser currentUser, File photoFile) {
         pb.setVisibility(ProgressBar.VISIBLE);
         Post post = new Post();
-        post.setDescription(description);
+        //post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
@@ -171,7 +214,7 @@ public class ComposeFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, "Success");
-                etDescription.setText("");
+                //etDescription.setText("");
                 ivPostImage.setImageResource(0);
             }
         });
@@ -182,5 +225,32 @@ public class ComposeFragment extends Fragment {
         Intent i = new Intent(getContext(), LoginActivity.class);
         startActivity(i);
         getActivity().finish();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch(view.getId()){
+            case R.id.spnLength:
+                Toast.makeText(getContext(),
+                        lengthArr[i],
+                        Toast.LENGTH_LONG)
+                        .show();
+            case R.id.spnThick:
+                Toast.makeText(getContext(),
+                        thickArr[i],
+                        Toast.LENGTH_LONG)
+                        .show();
+            case R.id.spnColor:
+                Toast.makeText(getContext(),
+                        colorArr[i],
+                        Toast.LENGTH_LONG)
+                        .show();
+        }
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
