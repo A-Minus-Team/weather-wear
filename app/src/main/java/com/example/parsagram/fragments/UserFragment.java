@@ -25,7 +25,7 @@ import java.util.List;
 public class UserFragment extends HomeFragment {
 
 
-    @Override
+    //@Override
     protected void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.setLimit(20);
@@ -42,7 +42,7 @@ public class UserFragment extends HomeFragment {
                 for(Post post:posts) {
                     Log.i(TAG, "Post: " + post.getDescription());
                 }
-                allPosts.addAll(posts);
+                //allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
             }
         });

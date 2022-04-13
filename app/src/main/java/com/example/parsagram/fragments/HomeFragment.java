@@ -17,6 +17,9 @@ import android.widget.Button;
 import com.example.parsagram.LoginActivity;
 import com.example.parsagram.Post;
 import com.example.parsagram.PostAdapter;
+import com.example.parsagram.PostPants;
+import com.example.parsagram.PostShirt;
+import com.example.parsagram.PostShirtAdapter;
 import com.example.parsagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -26,14 +29,20 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
-    protected PostAdapter adapter;
+    protected PostShirtAdapter adapter;
     private RecyclerView rvPosts;
     private SwipeRefreshLayout swipeContainer;
-    protected List<Post> allPosts;
+    protected List<PostShirt> allShirts;
+    protected List<PostPants> allPants;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,15 +59,15 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view,savedInstanceState);
 
         rvPosts = view.findViewById(R.id.rvPosts);
-        allPosts = new ArrayList<>();
-        adapter = new PostAdapter(getContext(), allPosts);
-
+        allShirts = new ArrayList<>();
+        allPants = new ArrayList<>();
+        adapter = new PostShirtAdapter(getContext(), allShirts);
 
         rvPosts.setAdapter(adapter);
 
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        queryPosts();
+        queryShirts();
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -71,7 +80,7 @@ public class HomeFragment extends Fragment {
                 // Remember to CLEAR OUT old items before appending in the new ones
                 adapter.clear();
                 // ...the data has come back, add new items to your adapter...
-                queryPosts();
+                queryShirts();
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
             }
@@ -84,22 +93,39 @@ public class HomeFragment extends Fragment {
 
     }
 
-    protected void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+    protected void queryShirts() {
+        ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         query.setLimit(20);
-        query.addDescendingOrder(Post.KEY_CREATED_AT);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
+        query.findInBackground(new FindCallback<PostShirt>() {
             @Override
-            public void done(List<Post> posts, ParseException e) {
+            public void done(List<PostShirt> shirts, ParseException e) {
                 if(e != null) {
                     Log.e(TAG, "Query error", e);
                     return;
                 }
-                for(Post post:posts) {
-                    Log.i(TAG, "Post: " + post.getDescription());
+                for(PostShirt shirt:shirts) {
+                    Log.i(TAG, "Post: " + shirt.getColor());
                 }
-                allPosts.addAll(posts);
+                allShirts.addAll(shirts);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void queryPants() {
+        ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
+        query.setLimit(20);
+        query.findInBackground(new FindCallback<PostPants>() {
+            @Override
+            public void done(List<PostPants> pants, ParseException e) {
+                if(e != null) {
+                    Log.e(TAG, "Query error", e);
+                    return;
+                }
+                for(PostPants pant:pants) {
+                    Log.i(TAG, "Post: " + pant.getColor());
+                }
+                allPants.addAll(pants);
                 adapter.notifyDataSetChanged();
             }
         });
