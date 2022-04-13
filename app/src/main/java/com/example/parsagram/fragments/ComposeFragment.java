@@ -238,9 +238,9 @@ public class ComposeFragment extends Fragment implements AdapterView.OnItemSelec
         if (Arrays.asList(thickArr).contains(option))
             descriptionT = option;
         if (Arrays.asList(lengthArr).contains(option))
-            descriptionL = adapterView.getItemAtPosition(i).toString();
+            descriptionL = option;
         if(Arrays.asList(colorArr).contains(option))
-            descriptionT = adapterView.getItemAtPosition(i).toString();
+            descriptionC = option;
 
         /**switch(0){
             case R.id.spnLength:
