@@ -1,6 +1,5 @@
 package com.example.parsagram.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,11 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.parsagram.LoginActivity;
-import com.example.parsagram.Post;
-import com.example.parsagram.PostAdapter;
 import com.example.parsagram.PostPants;
 import com.example.parsagram.PostShirt;
 import com.example.parsagram.PostShirtAdapter;
@@ -24,14 +19,11 @@ import com.example.parsagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.Random;
 
 
 public class HomeFragment extends Fragment {
@@ -65,7 +57,7 @@ public class HomeFragment extends Fragment {
 
         rvPosts.setAdapter(adapter);
 
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         queryShirts();
 
@@ -81,6 +73,8 @@ public class HomeFragment extends Fragment {
                 adapter.clear();
                 // ...the data has come back, add new items to your adapter...
                 queryShirts();
+
+
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
             }
@@ -131,6 +125,157 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+    //The start of Color Recommending Algorithm
+
+    //generate a random number to determine a random color
+    public int generateRandomNum(int min, int max){
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+
+    }
+
+
+    /*
+        Idea for the future, if we can use a for loop to go through each item and find the color available from the user
+        we can try to get the color, put it into a list of string
+
+        String[] arr = {Blue, Blue, Red, Red}
+        int N = arr.size();
+
+        Set<String> DistString = new HashSet<String>();
+
+        // Traverse the array
+        for(int i = 0; i < N; i++)
+        {
+
+            // If current string not
+            // present into the set
+            if (!DistString.contains(arr.get(i)))
+            {
+
+                // Insert current string
+                // into the set
+                DistString.add(arr.get(i));
+            }
+        }
+
+        This should give us unique colors available. Then we will use
+
+        max = DistString.size()
+        into generateRandomNum(min, max), min always 1
+     */
+
+    //determining random color
+    public String randomColor (int ranNum){
+        String color;
+        switch (ranNum) {
+            case 1:  color = "Red";
+                break;
+            case 2:  color = "Orange";
+                break;
+            case 3:  color = "Yellow";
+                break;
+            case 4:  color = "Green";
+                break;
+            case 5:  color = "Blue";
+                break;
+            case 6:  color = "Purple";
+                break;
+            case 7:  color = "Black";
+                break;
+            case 8:  color = "Brown";
+                break;
+            case 9:  color = "White";
+                break;
+            default: color = "";
+                break;
+        }
+        return color;
+    }
+
+    //takes the random color, and pairs it with best matched color
+    public static String[] colorPairList (String currColor){
+        String[] arr = {};
+        String color;
+        switch (currColor) {
+            case "Blue":
+                arr = new String[] {
+                        "Red",
+                        "Yellow",
+                        "White",
+                        "Black",
+                };
+                break;
+            case "Red":
+                arr = new String[] {
+                    "Blue",
+                    "White",
+                    "Black"
+                };
+                break;
+            case "Yellow":
+                arr = new String[] {
+                        "Blue",
+                        "White",
+                        "Black",
+                        "Green"
+                };
+                break;
+            case "Green":
+                arr = new String[] {
+                        "Orange",
+                        "White",
+                        "Black",
+                        "Purple"
+                };
+                break;
+            case "Purple":
+                arr = new String[] {
+                        "Orange",
+                        "White",
+                        "Black",
+                        "Green"
+                };
+                break;
+            case "White":
+                arr = new String[] {
+                        "Blue",
+                        "Black"
+                };
+                break;
+            case "Orange":
+                arr = new String[] {
+                        "Blue",
+                        "Black",
+                        "Green",
+                        "White"
+                };
+                break;
+            case "Black":
+                arr = new String[] {
+                        "White"
+                };
+                break;
+            case "Brown":
+                arr = new String[] {
+                        "White",
+                        "Black"
+                };
+                break;
+            default: color = "White";
+                break;
+        }
+        return arr;
+    }
+
+    //grabs the list of best possible colors and pick one of them at random
+    public String generateColorPair(String[] arr){
+        int rnd = new Random().nextInt(arr.length);
+        return arr[rnd];
+    }
+
+    //end of color recommending algorithm
 
 
 }
