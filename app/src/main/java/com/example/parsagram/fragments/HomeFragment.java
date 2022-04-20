@@ -1,6 +1,7 @@
 package com.example.parsagram.fragments;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,8 @@ public class HomeFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         rvShirts = view.findViewById(R.id.rvShirts);
         rvPants = view.findViewById(R.id.rvPants);
@@ -74,7 +77,7 @@ public class HomeFragment extends Fragment {
         rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-
+        currentWeather();
 
         queryShirts();
         queryPants();
@@ -164,6 +167,21 @@ public class HomeFragment extends Fragment {
 
     // To get current weather data
     public int[] currentWeather() {
+        try {
+            URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?address=chicago&sensor=false&#8221");
+            //Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            //Set the request to GET or POST as per the requirements
+            conn.setRequestMethod("GET");
+            //Use the connect method to create the connection bridge
+            conn.connect();
+            //Get the response status of the Rest API
+            int responsecode = conn.getResponseCode();
+            Log.i(TAG, "Response code is: " + responsecode);
+        }
+        catch(Exception e) {
+            Log.e(TAG, "Weather", e);
+        }
         int[] test = { 1 };
         return test;
     }
