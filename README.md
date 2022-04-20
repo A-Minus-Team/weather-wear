@@ -152,5 +152,6 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 <img src='http://g.recordit.co/jz6r6K27lU.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Homepage
+Milestone 2: Homepage now displays temperature info
 ![Milestone 2: Homepage now displays temperature info](gifs/milestone_2_homepage_temperature_display.gif)
 ![](gifs/milestone_1_homepage.gif)
