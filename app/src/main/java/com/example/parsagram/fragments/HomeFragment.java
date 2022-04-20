@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.parsagram.PostPants;
+import com.example.parsagram.PostPantsAdapter;
 import com.example.parsagram.PostShirt;
 import com.example.parsagram.PostShirtAdapter;
 import com.example.parsagram.R;
@@ -21,7 +22,6 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -29,9 +29,12 @@ import java.util.Random;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
-    protected PostShirtAdapter adapter;
-    private RecyclerView rvPosts;
-    private SwipeRefreshLayout swipeContainer;
+    protected PostShirtAdapter adapterShirts;
+    protected PostPantsAdapter adapterPants;
+    private RecyclerView rvShirts;
+    private RecyclerView rvPants;
+    private SwipeRefreshLayout swipeContainerShirts;
+    private SwipeRefreshLayout swipeContainerPants;
     protected List<PostShirt> allShirts;
     protected List<PostPants> allPants;
 
@@ -50,37 +53,63 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
-        rvPosts = view.findViewById(R.id.rvPosts);
+        rvShirts = view.findViewById(R.id.rvShirts);
+        rvPants = view.findViewById(R.id.rvPants);
         allShirts = new ArrayList<>();
         allPants = new ArrayList<>();
-        adapter = new PostShirtAdapter(getContext(), allShirts);
+        adapterShirts = new PostShirtAdapter(getContext(), allShirts);
+        adapterPants = new PostPantsAdapter(getContext(), allPants);
 
-        rvPosts.setAdapter(adapter);
 
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        rvShirts.setAdapter(adapterShirts);
+        rvPants.setAdapter(adapterPants);
+
+
+        rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
 
         queryShirts();
+        queryPants();
 
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainerShirts = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainerShirts);
+        swipeContainerPants = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainerPants);
         // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeContainerShirts.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 // Remember to CLEAR OUT old items before appending in the new ones
-                adapter.clear();
-                // ...the data has come back, add new items to your adapter...
+                adapterShirts.clear();
+                // ...the data has come back, add new items to your adapterShirts...
                 queryShirts();
 
 
                 // Now we call setRefreshing(false) to signal refresh has finished
-                swipeContainer.setRefreshing(false);
+                swipeContainerShirts.setRefreshing(false);
+            }
+        });
+        swipeContainerPants.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                // Remember to CLEAR OUT old items before appending in the new ones
+                adapterShirts.clear();
+                // ...the data has come back, add new items to your adapterShirts...
+                queryShirts();
+
+
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainerPants.setRefreshing(false);
             }
         });
         // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+        swipeContainerShirts.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -90,6 +119,7 @@ public class HomeFragment extends Fragment {
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         query.setLimit(20);
+        query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
             public void done(List<PostShirt> shirts, ParseException e) {
@@ -101,7 +131,7 @@ public class HomeFragment extends Fragment {
                     Log.i(TAG, "Post: " + shirt.getColor());
                 }
                 allShirts.addAll(shirts);
-                adapter.notifyDataSetChanged();
+                adapterShirts.notifyDataSetChanged();
             }
         });
     }
@@ -109,6 +139,7 @@ public class HomeFragment extends Fragment {
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         query.setLimit(20);
+        query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
             public void done(List<PostPants> pants, ParseException e) {
@@ -120,7 +151,7 @@ public class HomeFragment extends Fragment {
                     Log.i(TAG, "Post: " + pant.getColor());
                 }
                 allPants.addAll(pants);
-                adapter.notifyDataSetChanged();
+                adapterPants.notifyDataSetChanged();
             }
         });
     }

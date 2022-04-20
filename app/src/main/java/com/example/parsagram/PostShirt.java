@@ -28,6 +28,6 @@ public class PostShirt extends ParseObject {
     }
 
     public String getColor() {
-        return getString(KEY_USER);
+        return getString(KEY_COLOR);
     }
 }

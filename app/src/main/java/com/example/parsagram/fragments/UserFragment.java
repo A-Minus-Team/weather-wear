@@ -43,7 +43,7 @@ public class UserFragment extends HomeFragment {
                     Log.i(TAG, "Post: " + post.getDescription());
                 }
                 //allPosts.addAll(posts);
-                adapter.notifyDataSetChanged();
+                adapterShirts.notifyDataSetChanged();
             }
         });
     }

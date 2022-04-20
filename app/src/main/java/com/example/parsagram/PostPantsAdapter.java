@@ -16,14 +16,14 @@ import com.parse.ParseFile;
 
 import java.util.List;
 
-public class PostShirtAdapter extends RecyclerView.Adapter<PostShirtAdapter.ViewHolder> {
+public class PostPantsAdapter extends RecyclerView.Adapter<PostPantsAdapter.ViewHolder> {
 
     private Context context;
-    private List<PostShirt> shirts;
+    private List<PostPants> pants;
 
-    public PostShirtAdapter(Context context, List<PostShirt> shirts) {
+    public PostPantsAdapter(Context context, List<PostPants> pants) {
         this.context = context;
-        this.shirts = shirts;
+        this.pants = pants;
     }
 
     @NonNull
@@ -35,13 +35,13 @@ public class PostShirtAdapter extends RecyclerView.Adapter<PostShirtAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PostShirt shirt = shirts.get(position);
-        holder.bind(shirt);
+        PostPants pant = pants.get(position);
+        holder.bind(pant);
     }
 
     @Override
     public int getItemCount() {
-        return shirts.size();
+        return pants.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -53,20 +53,20 @@ public class PostShirtAdapter extends RecyclerView.Adapter<PostShirtAdapter.View
             ivPost = itemView.findViewById(R.id.ivPost);
         }
 
-        public void bind(PostShirt shirt) {
-            ParseFile image = shirt.getImage();
+        public void bind(PostPants pant) {
+            ParseFile image = pant.getImage();
             if(image != null)
-                Glide.with(context).load(shirt.getImage().getUrl()).into(ivPost);
+                Glide.with(context).load(pant.getImage().getUrl()).into(ivPost);
         }
     }
     public void clear() {
-        shirts.clear();
+        pants.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
-    public void addAll(List<PostShirt> list) {
-        shirts.addAll(list);
+    public void addAll(List<PostPants> list) {
+        pants.addAll(list);
         notifyDataSetChanged();
     }
 }
