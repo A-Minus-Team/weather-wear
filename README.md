@@ -61,8 +61,8 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
    * Adjust location
 * User profile
    * Stat display
-      * Daily login counter
-      * Does the user dress cold/warm?
+   * Daily login counter
+   * Does the user dress cold/warm?
 
 ### 3. Navigation
 
