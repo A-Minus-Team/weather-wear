@@ -21,10 +21,10 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 
-import org.json.JSONArray;
 //import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -203,7 +203,11 @@ public class HomeFragment extends Fragment {
             JSONParser parse = new JSONParser();
             //Type caste the parsed json data in json object
             JSONObject jobj = (JSONObject) parse.parse(inline);
-            Log.i(TAG, (String) jobj.get("timezone"));
+            JSONObject current = (JSONObject) jobj.get("current");
+            JSONArray weatherArr = (JSONArray) current.get("weather");
+            JSONObject weather = (JSONObject) weatherArr.get(0);
+
+            Log.i(TAG, (String) weather.get("description"));
         }
         catch(Exception e) {
             Log.e(TAG, "Weather", e);
