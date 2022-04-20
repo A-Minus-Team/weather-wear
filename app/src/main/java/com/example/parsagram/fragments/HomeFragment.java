@@ -1,16 +1,15 @@
 package com.example.parsagram.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.parsagram.PostPants;
 import com.example.parsagram.PostPantsAdapter;
@@ -21,9 +20,18 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class HomeFragment extends Fragment {
@@ -37,7 +45,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeContainerPants;
     protected List<PostShirt> allShirts;
     protected List<PostPants> allPants;
-
+    private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,7 +59,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view,savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         rvShirts = view.findViewById(R.id.rvShirts);
         rvPants = view.findViewById(R.id.rvPants);
@@ -60,14 +68,12 @@ public class HomeFragment extends Fragment {
         adapterShirts = new PostShirtAdapter(getContext(), allShirts);
         adapterPants = new PostPantsAdapter(getContext(), allPants);
 
-
-
         rvShirts.setAdapter(adapterShirts);
         rvPants.setAdapter(adapterPants);
 
-
         rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
 
 
         queryShirts();
@@ -113,8 +119,8 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
     }
+
 
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
@@ -156,6 +162,11 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // To get current weather data
+    public int[] currentWeather() {
+        int[] test = { 1 };
+        return test;
+    }
 
     //The start of Color Recommending Algorithm
 
@@ -163,7 +174,6 @@ public class HomeFragment extends Fragment {
     public int generateRandomNum(int min, int max){
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
-
     }
 
 
