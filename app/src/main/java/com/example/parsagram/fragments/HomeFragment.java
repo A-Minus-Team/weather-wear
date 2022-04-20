@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeContainerPants;
     protected List<PostShirt> allShirts;
     protected List<PostPants> allPants;
+    private TextView tvTemperature;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
 
     public HomeFragment() {
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment {
 
         rvShirts = view.findViewById(R.id.rvShirts);
         rvPants = view.findViewById(R.id.rvPants);
+        tvTemperature = view.findViewById(R.id.tvTemperature);
         allShirts = new ArrayList<>();
         allPants = new ArrayList<>();
         adapterShirts = new PostShirtAdapter(getContext(), allShirts);
@@ -78,7 +81,9 @@ public class HomeFragment extends Fragment {
         rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        currentWeather();
+        String[] weather = currentWeather();
+        String temperature = weather[0] + " °F";
+        tvTemperature.setText(temperature);
 
         queryShirts();
         queryPants();
@@ -167,11 +172,13 @@ public class HomeFragment extends Fragment {
     }
 
     // To get current weather data
-    public int[] currentWeather() {
+    public String[] currentWeather() {
         //inline will store the JSON data streamed in string format
         String inline = "";
+        String description = "";
+        String temperature = "";
         try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,daily&appid=" + weatherKey);
+            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&exclude=minutely,hourly,daily&appid=" + weatherKey);
             //Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             //Set the request to GET or POST as per the requirements
@@ -207,13 +214,15 @@ public class HomeFragment extends Fragment {
             JSONArray weatherArr = (JSONArray) current.get("weather");
             JSONObject weather = (JSONObject) weatherArr.get(0);
 
-            Log.i(TAG, (String) weather.get("description"));
+            temperature = current.get("temp").toString();
+            description = (String) weather.get("description");
+
+            Log.i(TAG, description + " " + temperature);
         }
         catch(Exception e) {
             Log.e(TAG, "Weather", e);
         }
-        int[] test = { 1 };
-        return test;
+        return new String[] {temperature, description};
     }
 
     //The start of Color Recommending Algorithm
