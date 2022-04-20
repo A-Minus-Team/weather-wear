@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     protected List<PostShirt> allShirts;
     protected List<PostPants> allPants;
     private TextView tvTemperature;
+    private TextView tvDescription;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
 
     public HomeFragment() {
@@ -70,6 +71,7 @@ public class HomeFragment extends Fragment {
         rvShirts = view.findViewById(R.id.rvShirts);
         rvPants = view.findViewById(R.id.rvPants);
         tvTemperature = view.findViewById(R.id.tvTemperature);
+        tvDescription = view.findViewById(R.id.tvDescription);
         allShirts = new ArrayList<>();
         allPants = new ArrayList<>();
         adapterShirts = new PostShirtAdapter(getContext(), allShirts);
@@ -83,7 +85,9 @@ public class HomeFragment extends Fragment {
 
         String[] weather = currentWeather();
         String temperature = weather[0] + " °F";
+        String description = weather[1];
         tvTemperature.setText(temperature);
+        tvDescription.setText(description);
 
         queryShirts();
         queryPants();
