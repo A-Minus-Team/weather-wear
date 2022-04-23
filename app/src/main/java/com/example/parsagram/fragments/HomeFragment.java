@@ -1,5 +1,6 @@
 package com.example.parsagram.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.parsagram.LoginActivity;
 import com.example.parsagram.PostPants;
 import com.example.parsagram.PostPantsAdapter;
 import com.example.parsagram.PostShirt;
@@ -28,6 +30,7 @@ import org.json.simple.JSONObject;
 
 //import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -88,6 +91,13 @@ public class HomeFragment extends Fragment {
         String description = weather[1];
         tvTemperature.setText(temperature);
         tvDescription.setText(description);
+
+        tvTemperature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sevenDay(v);
+            }
+        });
 
         queryShirts();
         queryPants();
@@ -227,6 +237,13 @@ public class HomeFragment extends Fragment {
             Log.e(TAG, "Weather", e);
         }
         return new String[] {temperature, description};
+    }
+
+    public void sevenDay(View view)
+    {
+        Intent i=new Intent();
+        i.setClass(this.getContext(), LoginActivity.class);
+        startActivity(i);
     }
 
     //The start of Color Recommending Algorithm
