@@ -14,20 +14,43 @@ public class PostShirt extends ParseObject {
     public static final String KEY_IMAGE = "shirtImage";
     public static final String KEY_USER = "userShirt";
     public static final String KEY_CREATED_AT = "createdAt";
-    public static final String KEY_COLOR = "Color";
+    public static final String KEY_COLOR = "color";
+    public static final String KEY_LENGTH = "size";
+    public static final String KEY_THICKNESS = "thickness";
+
 
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
     }
+    public void setImage(ParseFile image) {
+        put(KEY_IMAGE,image);
+    }
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
     }
-
+    public void setUser(ParseUser user) {
+        put(KEY_USER,user);
+    }
     public Date getCreatedAt() {
         return getDate(KEY_CREATED_AT);
     }
-
+    public void setCreatedAt(ParseFile createdAt) { put(KEY_CREATED_AT,createdAt); }
     public String getColor() {
         return getString(KEY_COLOR);
+    }
+    public void setColor(String color) {
+        put(KEY_COLOR,color);
+    }
+    public String getLength() {
+        return getString(KEY_LENGTH);
+    }
+    public void setLength(String length) {
+        put(KEY_LENGTH,length);
+    }
+    public String getThickness() {
+        return getString(KEY_THICKNESS);
+    }
+    public void setThickness(String thickness) {
+        put(KEY_THICKNESS,thickness);
     }
 }

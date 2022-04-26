@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.example.parsagram.LoginActivity;
 import com.example.parsagram.MainActivity;
 import com.example.parsagram.Post;
+import com.example.parsagram.PostShirt;
 import com.example.parsagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -49,9 +50,9 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String TAG = "ComposeFragment";
-    private String descriptionL;
-    private String descriptionC;
-    private String descriptionT;
+    private String length;
+    private String color;
+    private String thickness;
     private Button btnCaptureImage;
     private Button btnSubmit;
     private Button btnLogout;
@@ -83,9 +84,9 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         pb = (ProgressBar) view.findViewById(R.id.pbLoading);
-        descriptionL = "";
-        descriptionT = "";
-        descriptionC = "";
+        length = "";
+        thickness = "";
+        color = "";
         Spinner spinLength = view.findViewById(R.id.spnLength);
         spinLength.setOnItemSelectedListener(this);
         Spinner spinThick = view.findViewById(R.id.spnThick);
@@ -112,7 +113,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (descriptionL.isEmpty() && descriptionC.isEmpty() && descriptionT.isEmpty()) {
+                if (length.isEmpty() && color.isEmpty() && thickness.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -121,7 +122,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(descriptionL + " " + descriptionT + " " + descriptionC, currentUser, photoFile);
+                savePost(length, thickness, color, currentUser, photoFile);
             }
         });
 
@@ -203,12 +204,14 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
         return file;
     }
 
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
+    private void savePost(String color, String thickness, String length, ParseUser currentUser, File photoFile) {
         pb.setVisibility(ProgressBar.VISIBLE);
-        Post post = new Post();
-        post.setDescription(description);
+        PostShirt post = new PostShirt();
+        post.setColor(color);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
+        post.setLength(length);
+        post.setThickness(thickness);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -236,11 +239,11 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
         Log.i(TAG, adapterView.getItemAtPosition(i).toString());
         String option = adapterView.getItemAtPosition(i).toString();
         if (Arrays.asList(thickArr).contains(option))
-            descriptionT = option;
+            thickness = option;
         if (Arrays.asList(lengthArr).contains(option))
-            descriptionL = option;
+            length = option;
         if(Arrays.asList(colorArr).contains(option))
-            descriptionC = option;
+            color = option;
 
         /**switch(0){
             case R.id.spnLength:

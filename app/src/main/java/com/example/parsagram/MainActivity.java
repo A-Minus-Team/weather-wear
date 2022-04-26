@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.parsagram.fragments.AppSettingsFragment;
 import com.example.parsagram.fragments.HomeFragment;
 import com.example.parsagram.fragments.ShirtFragment;
 import com.example.parsagram.fragments.UserFragment;
@@ -24,10 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
-    final Fragment userFragment = new UserFragment();
+    final Fragment appSettingsFragment = new AppSettingsFragment();
     final Fragment wardrobeFragment = new WardrobeFragment();
     final Fragment homeFragment = new HomeFragment();
-    final Fragment shirtFragment = new ShirtFragment();
 
 
     BottomNavigationView bottomNavigationView;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_profile:
                             default:
-                                fragment = userFragment;
+                                fragment = appSettingsFragment;
                                 break;
                         }
                         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
