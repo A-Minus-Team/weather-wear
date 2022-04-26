@@ -20,6 +20,7 @@ import com.example.parsagram.PostPantsAdapter;
 import com.example.parsagram.PostShirt;
 import com.example.parsagram.PostShirtAdapter;
 import com.example.parsagram.R;
+import com.example.parsagram.WeatherActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
     protected List<PostPants> allPants;
     private TextView tvTemperature;
     private TextView tvDescription;
+    private JSONArray daily;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
 
     public HomeFragment() {
@@ -192,7 +194,7 @@ public class HomeFragment extends Fragment {
         String description = "";
         String temperature = "";
         try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&exclude=minutely,hourly,daily&appid=" + weatherKey);
+            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&exclude=minutely,hourly&appid=" + weatherKey);
             //Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             //Set the request to GET or POST as per the requirements
@@ -225,6 +227,7 @@ public class HomeFragment extends Fragment {
             //Type caste the parsed json data in json object
             JSONObject jobj = (JSONObject) parse.parse(inline);
             JSONObject current = (JSONObject) jobj.get("current");
+            daily = (JSONArray) jobj.get("daily");
             JSONArray weatherArr = (JSONArray) current.get("weather");
             JSONObject weather = (JSONObject) weatherArr.get(0);
 
@@ -242,7 +245,10 @@ public class HomeFragment extends Fragment {
     public void sevenDay(View view)
     {
         Intent i=new Intent();
-        i.setClass(this.getContext(), LoginActivity.class);
+        i.setClass(this.getContext(), WeatherActivity.class);
+        // Parse and build daily weather data
+        String[] dWeather = {"hey", "hey2"};
+        i.putExtra("daily", dWeather);
         startActivity(i);
     }
 
