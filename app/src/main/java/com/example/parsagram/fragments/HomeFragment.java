@@ -329,7 +329,7 @@ public class HomeFragment extends Fragment {
                         "Red",
                         "Yellow",
                         "White",
-                        "Black",
+                        "Black"
                 };
                 break;
             case "Red":
