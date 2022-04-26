@@ -156,3 +156,5 @@ Milestone 2: Homepage now displays temperature info
 ![](gifs/milestone_1_homepage.gif)
 ![Animation](https://user-images.githubusercontent.com/50147938/164146857-7b53503a-17ad-45e2-83e0-6f98e6a9b16a.gif)
 
+## Zipcode for the weather and App settings
+<img src='http://g.recordit.co/M3nmwu7dXN.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
