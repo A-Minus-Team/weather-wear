@@ -12,6 +12,7 @@ public class ParseApplication extends Application {
 
         ParseObject.registerSubclass(PostShirt.class);
         ParseObject.registerSubclass(PostPants.class);
+        ParseObject.registerSubclass(Zipcode.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("B36loCuH4fFyf4JwLKDJ5PiGaxHuijayaFmlRYPg")

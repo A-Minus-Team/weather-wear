@@ -17,10 +17,17 @@ import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
 import com.example.parsagram.R;
+import com.example.parsagram.Zipcode;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import java.util.List;
 
 public class AppSettingsFragment extends Fragment {
 
@@ -76,7 +83,8 @@ public class AppSettingsFragment extends Fragment {
             public void onClick(View view) {
                 Log.i(TAG, "onClick update zipcode");
                 String zipcode = tvZipcode.getText().toString();
-                uploadZipcode(zipcode);
+
+                updateZipcode(zipcode);
             }
 
         });
@@ -84,29 +92,49 @@ public class AppSettingsFragment extends Fragment {
 
     }
 
-    //This only uploads zipcode, no assigned user, and doesn't update
-    private void uploadZipcode(String zipcode) {
-        /*
-        ParseQuery<Zipcode> query = new ParseQuery<Zipcode>(Zipcode.class);
+    //This only code not only updates but also uploads zipcodes
+    private void updateZipcode(String zipcode) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("userProfile");
+        ParseUser currentUser = ParseUser.getCurrentUser();
 
-        ParseUser user = ParseUser.getCurrentUser();
-        String username = user.get("user").toString();
-        */
-
-        ParseObject postZipcode = new ParseObject("userProfile");
-        postZipcode.put("zipcode", zipcode);
-        //postZipcode.put(username, user);
-        postZipcode.saveInBackground(new SaveCallback() {
+        query.whereEqualTo("user", currentUser);
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseException e) {
-                if (e == null){
-                    Toast.makeText(getActivity(), "Zipcode Updated", Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null && objects.size() > 0) { //updates zipcode if query exist
+                    ParseObject update = objects.get(0);
+                    update.put("zipcode", zipcode);
+                    update.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                Toast.makeText(getActivity(), "Zipcode Updated", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    tvZipcode.setText("");
                 }
-                tvZipcode.setText("");
+                else{ //uploads zipcode if there query doesn't exist
+                    ParseUser currentUser = ParseUser.getCurrentUser();
+                    Zipcode uploadZipcode = new Zipcode();
+                    uploadZipcode.setZipcode(zipcode);
+                    uploadZipcode.setUser(currentUser);
+                    uploadZipcode.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                Toast.makeText(getActivity(), "Zipcode Uploaded", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    tvZipcode.setText("");
+                }
             }
         });
 
