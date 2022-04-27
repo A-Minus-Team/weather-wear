@@ -15,11 +15,11 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         // Receive daily data from intent
-        Bundle extras = getIntent().getExtras();
-        String[] daily = extras.getStringArray("daily");
+        //Bundle extras = getIntent().getExtras();
+        //String[] daily = extras.getStringArray("daily");
 
         tvTest = findViewById(R.id.tvTest);
-        tvTest.setText(daily[0]);
+        //tvTest.setText(daily[0]);
     }
 
 

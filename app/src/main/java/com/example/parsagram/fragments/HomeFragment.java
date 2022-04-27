@@ -36,6 +36,7 @@ import org.w3c.dom.Text;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -244,12 +245,29 @@ public class HomeFragment extends Fragment {
 
     public void sevenDay(View view)
     {
-        Intent i=new Intent();
-        i.setClass(this.getContext(), WeatherActivity.class);
+        String[] tempDay = new String[7];
+        String[] tempMin = new String[7];
+        String[] tempMax = new String[7];
+        String[] weatherDescription = new String[7];
+
         // Parse and build daily weather data
-        String[] dWeather = {"hey", "hey2"};
-        i.putExtra("daily", dWeather);
-        startActivity(i);
+        Iterator i = daily.iterator();
+        int j = 0;
+        while (i.hasNext() && j < 7) {
+            JSONObject day = (JSONObject) i.next();
+            JSONObject tempObj = (JSONObject) day.get("temp");
+            tempDay[j] = tempObj.get("day").toString();
+            tempMin[j] = tempObj.get("min").toString();
+            tempMax[j] = tempObj.get("max").toString();
+            JSONObject weather = (JSONObject) ((JSONArray) day.get("weather")).get(0);
+            weatherDescription[j] = weather.get("description").toString();
+            j++;
+        }
+
+        Intent in = new Intent();
+        in.setClass(this.getContext(), WeatherActivity.class);
+        //in.putExtra("daily", tempDay);
+        startActivity(in);
     }
 
     //The start of Color Recommending Algorithm
