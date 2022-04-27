@@ -158,3 +158,6 @@ Milestone 2: Homepage now displays temperature info
 
 ## Zipcode for the weather and App settings
 <img src='http://g.recordit.co/M3nmwu7dXN.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+## User settings and ability to change zip code
+![Animation](https://user-images.githubusercontent.com/50147938/165433504-e4e32cf3-0770-44d5-a550-54167b491498.gif)
