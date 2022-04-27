@@ -8,6 +8,14 @@
 
 
     <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_below="@+id/btnSupport"
+        android:layout_marginTop="0dp"
+        android:text="Logout" />
+
+    <Button
         android:id="@+id/btnEditProfile"
         android:layout_width="match_parent"
         android:layout_height="95dp"
@@ -16,12 +24,25 @@
         android:text="Edit Profile" />
 
     <Button
-        android:id="@+id/btnEditProfile3"
+        android:id="@+id/btnAbout"
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:layout_below="@+id/btnEditProfile"
-        android:layout_marginTop="10dp"
-        android:text="Edit Profile" />
+        android:text="About" /><![CDATA[
+=======
+        android:layout_marginTop="-4dp"
+        android:text="About App" />
+
+    ]]>
+
+    <Button
+        android:id="@+id/btnSupport"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_below="@+id/btnAbout"
+        android:layout_marginTop="1dp"
+        android:text="Support" />
+>>>>>>> Stashed changes
 
     <EditText
         android:id="@+id/tvZipcode"

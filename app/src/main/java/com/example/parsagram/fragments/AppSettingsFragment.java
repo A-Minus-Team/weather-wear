@@ -1,5 +1,6 @@
 package com.example.parsagram.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.parsagram.LoginActivity;
 import com.example.parsagram.R;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class AppSettingsFragment extends Fragment {
@@ -29,6 +32,7 @@ public class AppSettingsFragment extends Fragment {
 
     //zipcode variable
     private Button btnUpdate;
+    private Button btnLogout;
     private EditText tvZipcode;
     //end
 
@@ -52,6 +56,15 @@ public class AppSettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 toEditProfile();
+            }
+        });
+
+        btnLogout = view.findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
             }
         });
 
@@ -101,6 +114,12 @@ public class AppSettingsFragment extends Fragment {
     //end
 
 
+    private void logOut() {
+        ParseUser.logOut();
+        Intent i = new Intent(getContext(), LoginActivity.class);
+        startActivity(i);
+        getActivity().finish();
+    }
 
     private void toEditProfile() {
         Fragment fragment = new EditProfileFragment();

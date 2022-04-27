@@ -55,7 +55,6 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
     private String thickness;
     private Button btnCaptureImage;
     private Button btnSubmit;
-    private Button btnLogout;
     private ImageView ivPostImage;
     private ProgressBar pb;
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -94,14 +93,6 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
         Spinner spinColor = view.findViewById(R.id.spnColor);
         spinColor.setOnItemSelectedListener(this);
 
-        btnLogout = view.findViewById(R.id.btnLogout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logOut();
-            }
-        });
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
