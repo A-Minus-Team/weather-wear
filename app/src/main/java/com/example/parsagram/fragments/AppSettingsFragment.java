@@ -1,6 +1,7 @@
 package com.example.parsagram.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
+import com.example.parsagram.PostShirt;
 import com.example.parsagram.R;
 import com.example.parsagram.Zipcode;
 import com.parse.FindCallback;
@@ -40,6 +42,8 @@ public class AppSettingsFragment extends Fragment {
     //zipcode variable
     private Button btnUpdate;
     private Button btnLogout;
+    private Button btnAbout;
+    private Button btnSupport;
     private EditText tvZipcode;
     //end
 
@@ -57,21 +61,37 @@ public class AppSettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnEdit = view.findViewById(R.id.btnEditProfile);
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toEditProfile();
-            }
-        });
-
         btnLogout = view.findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logOut();
+            }
+        });
+
+        btnAbout = view.findViewById(R.id.btnAbout);
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/A-Minus-Team/weather-wear#readme"));
+                startActivity(browserIntent);
+            }
+        });
+
+        btnSupport = view.findViewById(R.id.btnSupport);
+
+        btnSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ "bed6@njit.edu" });
+                email.putExtra(Intent.EXTRA_SUBJECT, "Support Query");
+                //need this to prompts email client only
+                email.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
             }
         });
 
