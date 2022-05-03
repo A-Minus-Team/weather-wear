@@ -7,10 +7,23 @@
     android:layout_margin="8dp"
     android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/bg_wardrobe"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ImageView
         android:id="@+id/ivPost"
         android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -18,26 +31,35 @@
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivPost"
         android:layout_weight="1"
-        android:text="Orange" />
+        android:text="Orange"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvLength"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/tvColor"
         android:layout_weight="1"
-        android:text="Short" />
+        android:text="Short"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvThickness"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/tvLength"
         android:layout_weight="1"
-        android:text="Thick" />
+        android:text="Thick"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
 </RelativeLayout>
