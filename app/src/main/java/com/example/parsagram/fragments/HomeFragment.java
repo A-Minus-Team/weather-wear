@@ -57,6 +57,9 @@ public class HomeFragment extends Fragment {
     private TextView tvDescription;
     private JSONArray daily;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
+    private String zipcodeKey = "LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88";
+    //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=11%20Wall%20St,%20New%20York,%20NY%2010005
+    //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=07010,%20usa
 
     public HomeFragment() {
         // Required empty public constructor
@@ -89,18 +92,24 @@ public class HomeFragment extends Fragment {
         rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        String[] weather = currentWeather();
+        // Get latitude and longitude
+        // TODO: Replace static 07010 with dynamic from db
+        String[] latLong = latLong("07010");
+        Log.i(TAG, latLong[0] + " : " + latLong[1]);
+
+        // Then get weather for lat and long
+        String[] weather = currentWeather(latLong[0], latLong[1]);
         String temperature = weather[0] + " °F";
         String description = weather[1];
         tvTemperature.setText(temperature);
         tvDescription.setText(description);
 
-        tvTemperature.setOnClickListener(new View.OnClickListener() {
+        /*tvTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sevenDay(v);
             }
-        });
+        });*/
 
         queryShirts();
         queryPants();
@@ -189,13 +198,13 @@ public class HomeFragment extends Fragment {
     }
 
     // To get current weather data
-    public String[] currentWeather() {
+    public String[] currentWeather(String lat, String lng) {
         //inline will store the JSON data streamed in string format
         String inline = "";
         String description = "";
         String temperature = "";
         try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&exclude=minutely,hourly&appid=" + weatherKey);
+            URL url = new URL("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&units=imperial&exclude=minutely,hourly&appid=" + weatherKey);
             //Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             //Set the request to GET or POST as per the requirements
@@ -225,7 +234,7 @@ public class HomeFragment extends Fragment {
 
             //JSONParser reads the data from string object and break each data into key value pairs
             JSONParser parse = new JSONParser();
-            //Type caste the parsed json data in json object
+            //Type cast the parsed json data in json object
             JSONObject jobj = (JSONObject) parse.parse(inline);
             JSONObject current = (JSONObject) jobj.get("current");
             daily = (JSONArray) jobj.get("daily");
@@ -241,6 +250,57 @@ public class HomeFragment extends Fragment {
             Log.e(TAG, "Weather", e);
         }
         return new String[] {temperature, description};
+    }
+
+    public String[] latLong(String zipcode) {
+        //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=07010,%20usa
+        String baseUrl = "https://geocode.search.hereapi.com/v1/geocode?apiKey=";
+        String query = "&q=" + zipcode + ",%20usa";
+        String request = baseUrl + zipcodeKey + query;
+
+        String inline = "";
+        String lat = "";
+        String lng = "";
+        try {
+            URL url = new URL(request);
+            //Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            //Set the request to GET or POST as per the requirements
+            conn.setRequestMethod("GET");
+            //Use the connect method to create the connection bridge
+            conn.connect();
+            //Get the response status of the Rest API
+            int responsecode = conn.getResponseCode();
+            Log.i(TAG, "Response code is: " + responsecode);
+
+            //Iterating condition to if response code is not 200 then throw a runtime exception
+            //else continue the actual process of getting the JSON data
+            if (responsecode != 200)
+                throw new RuntimeException("HttpResponseCode: " + responsecode);
+            else {
+                //Scanner functionality will read the JSON data from the stream
+                Scanner sc = new Scanner(url.openStream());
+                while (sc.hasNext()) {
+                    inline += sc.nextLine();
+                }
+                Log.i(TAG, inline);
+                //Close the stream when reading the data has been finished
+                sc.close();
+            }
+
+            //JSONParser reads the data from string object and break each data into key value pairs
+            JSONParser parse = new JSONParser();
+            //Type caste the parsed json data in json object
+            JSONObject jobj = (JSONObject) parse.parse(inline);
+            JSONArray items = (JSONArray) jobj.get("items");
+            JSONObject item = (JSONObject)  items.get(0);
+            JSONObject latLong = (JSONObject) item.get("position");
+            lat = latLong.get("lat").toString();
+            lng = latLong.get("lng").toString();
+        } catch(Exception e) {
+            Log.e(TAG, "Weather", e);
+        }
+        return new String[] {lat, lng};
     }
 
     public void sevenDay(View view)
