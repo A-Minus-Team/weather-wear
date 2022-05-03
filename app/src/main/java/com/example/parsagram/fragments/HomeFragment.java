@@ -20,6 +20,7 @@ import com.example.parsagram.models.PostShirt;
 import com.example.parsagram.adapters.PostShirtAdapter;
 import com.example.parsagram.R;
 import com.example.parsagram.WeatherActivity;
+import com.example.parsagram.models.Zipcode;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -57,6 +58,7 @@ public class HomeFragment extends Fragment {
     private JSONArray daily;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
     private String zipcodeKey = "LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88";
+    private String zipcode;
     //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=11%20Wall%20St,%20New%20York,%20NY%2010005
     //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=07010,%20usa
 
@@ -91,9 +93,11 @@ public class HomeFragment extends Fragment {
         rvShirts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
+        // Get zipcode of user
+        zipcode = queryZipcode();
+
         // Get latitude and longitude
-        // TODO: Replace static 07010 with dynamic from db
-        String[] latLong = latLong("07010");
+        String[] latLong = latLong(zipcode);
         Log.i(TAG, latLong[0] + " : " + latLong[1]);
 
         // Then get weather for lat and long
@@ -153,6 +157,28 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+    }
+
+    protected String queryZipcode() {
+        final String[] zipcode = {""};
+        ParseQuery<Zipcode> query = ParseQuery.getQuery(Zipcode.class);
+        query.setLimit(1);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Zipcode>() {
+            @Override
+            public void done(List<Zipcode> zipcodes, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Query error", e);
+                    return;
+                }
+                for (Zipcode zip:zipcodes) {
+                    zipcode[0] = zip.getZipcode();
+                    Log.i(TAG, "Zipcode: " + zipcode[0]);
+                }
+
+            }
+        });
+        return zipcode[0];
     }
 
 
