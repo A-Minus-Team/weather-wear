@@ -27,7 +27,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
-import com.example.parsagram.PostShirt;
+import com.example.parsagram.PostPants;
 import com.example.parsagram.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -38,7 +38,7 @@ import java.io.File;
 import java.util.Arrays;
 
 
-public class ShirtFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class PantsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +58,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
 
     File photoFile;
 
-    public ShirtFragment() {
+    public PantsFragment() {
         // Required empty public constructor
     }
 
@@ -66,7 +66,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        return inflater.inflate(R.layout.fragment_pants, container, false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -190,7 +190,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private void savePost(String length, String thickness, String color, ParseUser currentUser, File photoFile) {
         pb.setVisibility(ProgressBar.VISIBLE);
-        PostShirt post = new PostShirt();
+        PostPants post = new PostPants();
         post.setColor(color);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
@@ -230,25 +230,25 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemSelecte
             color = option;
 
         /**switch(0){
-            case R.id.spnLength:
-                Toast.makeText(getContext(),
-                        lengthArr[i],
-                        Toast.LENGTH_LONG)
-                        .show();
-                description = lengthArr[i];
-            case R.id.spnThick:
-                Toast.makeText(getContext(),
-                        thickArr[i],
-                        Toast.LENGTH_LONG)
-                        .show();
-                description = thickArr[i];
-            case R.id.spnColor:
-                Toast.makeText(getContext(),
-                        colorArr[i],
-                        Toast.LENGTH_LONG)
-                        .show();
-                description = colorArr[i];
-        }*/
+         case R.id.spnLength:
+         Toast.makeText(getContext(),
+         lengthArr[i],
+         Toast.LENGTH_LONG)
+         .show();
+         description = lengthArr[i];
+         case R.id.spnThick:
+         Toast.makeText(getContext(),
+         thickArr[i],
+         Toast.LENGTH_LONG)
+         .show();
+         description = thickArr[i];
+         case R.id.spnColor:
+         Toast.makeText(getContext(),
+         colorArr[i],
+         Toast.LENGTH_LONG)
+         .show();
+         description = colorArr[i];
+         }*/
     }
 
 

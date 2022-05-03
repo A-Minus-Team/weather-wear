@@ -65,7 +65,7 @@ public class WardrobeFragment extends Fragment {
 
     }
     private void toPantsUpload() {
-        Fragment fragment = new ShirtFragment();
+        Fragment fragment = new PantsFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.flContainer, fragment);
