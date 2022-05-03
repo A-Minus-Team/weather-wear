@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#130b20"
     tools:context=".fragments.ShirtFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/bg_wardrobe"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/pbLoadingPants"
@@ -16,39 +27,40 @@
 
     <Button
         android:id="@+id/btnCaptureImagePants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="234dp"
-        android:layout_marginEnd="18dp"
-        android:text="Add Clothing" />
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
+        android:backgroundTint="#f72177"
+        android:text="Add" />
 
     <Button
         android:id="@+id/btnSubmitPants"
-        android:layout_width="399dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnCaptureImagePants"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="275dp"
-        android:layout_marginEnd="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#f72177"
         android:text="Submit"
         android:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivPostImagePants"
-        android:layout_width="255dp"
-        android:layout_height="244dp"
+        android:layout_width="200dp"
+        android:layout_height="220dp"
         android:layout_below="@+id/btnCaptureImagePants"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="77dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Spinner
@@ -57,7 +69,7 @@
         android:layout_height="45dp"
         android:layout_below="@+id/pbLoadingPants"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="-26dp" />
 
     <Spinner
@@ -66,8 +78,8 @@
         android:layout_height="45dp"
         android:layout_below="@+id/pbLoadingPants"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="52dp" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="26dp" />
 
     <Spinner
         android:id="@+id/spnColorPants"
@@ -75,8 +87,8 @@
         android:layout_height="45dp"
         android:layout_below="@+id/pbLoadingPants"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-2dp"
-        android:layout_marginTop="125dp" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="78dp" />
 
 
 </RelativeLayout>
