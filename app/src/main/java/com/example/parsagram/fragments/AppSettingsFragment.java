@@ -117,7 +117,7 @@ public class AppSettingsFragment extends Fragment {
                     });
                     tvZipcode.setText("");
                 }
-                else{ //uploads zipcode if there query doesn't exist
+                else{ //uploads zipcode if the query doesn't exist
                     ParseUser currentUser = ParseUser.getCurrentUser();
                     Zipcode uploadZipcode = new Zipcode();
                     uploadZipcode.setZipcode(zipcode);
