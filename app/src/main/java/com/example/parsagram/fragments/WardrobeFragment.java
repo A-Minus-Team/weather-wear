@@ -5,20 +5,42 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.parsagram.PostPants;
+import com.example.parsagram.PostPantsAdapter;
+import com.example.parsagram.PostShirt;
+import com.example.parsagram.PostShirtAdapter;
 import com.example.parsagram.R;
+import com.example.parsagram.ViewPantsAdapter;
+import com.example.parsagram.ViewShirtAdapter;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WardrobeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    public static final String TAG = "WardrobeFragment";
     private Button btnShirt;
     private Button btnPants;
+    private RecyclerView rvShirts;
+    private RecyclerView rvPants;
+    protected List<PostShirt> allShirts;
+    protected List<PostPants> allPants;
+    protected ViewShirtAdapter adapterShirts;
+    protected ViewPantsAdapter adapterPants;
 
     final Fragment shirtFragment = new ShirtFragment();
 
@@ -50,6 +72,61 @@ public class WardrobeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 toPantsUpload();
+            }
+        });
+
+        rvShirts = view.findViewById(R.id.rvShirts);
+        rvPants = view.findViewById(R.id.rvPant);
+        allShirts = new ArrayList<>();
+        allPants = new ArrayList<>();
+        adapterShirts = new ViewShirtAdapter(getContext(), allShirts);
+        adapterPants = new ViewPantsAdapter(getContext(), allPants);
+        rvShirts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPants.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        rvShirts.setAdapter(adapterShirts);
+        rvPants.setAdapter(adapterPants);
+
+        queryShirts();
+        queryPants();
+    }
+
+    protected void queryShirts() {
+        ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
+        query.setLimit(20);
+        query.include(PostShirt.KEY_USER); // how does this work?
+        query.findInBackground(new FindCallback<PostShirt>() {
+            @Override
+            public void done(List<PostShirt> shirts, ParseException e) {
+                if(e != null) {
+                    Log.e(TAG, "Query error", e);
+                    return;
+                }
+                for(PostShirt shirt:shirts) {
+                    Log.i(TAG, "Post: " + shirt.getColor());
+                }
+                allShirts.addAll(shirts);
+                adapterShirts.notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void queryPants() {
+        ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
+        query.setLimit(20);
+        query.include(PostShirt.KEY_USER); // how does this work?
+        query.findInBackground(new FindCallback<PostPants>() {
+            @Override
+            public void done(List<PostPants> pants, ParseException e) {
+                if(e != null) {
+                    Log.e(TAG, "Query error", e);
+                    return;
+                }
+                for(PostPants pant:pants) {
+                    Log.i(TAG, "Post: " + pant.getColor());
+                }
+                allPants.addAll(pants);
+                adapterPants.notifyDataSetChanged();
             }
         });
     }
