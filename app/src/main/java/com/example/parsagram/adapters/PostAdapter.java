@@ -1,4 +1,4 @@
-package com.example.parsagram;
+package com.example.parsagram.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,70 +11,67 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.parsagram.R;
+import com.example.parsagram.models.Post;
 import com.parse.ParseFile;
 
 import java.util.List;
 
-public class ViewPantsAdapter extends RecyclerView.Adapter<ViewPantsAdapter.ViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private Context context;
-    private List<PostPants> pants;
+    private List<Post> posts;
 
-    public ViewPantsAdapter(Context context, List<PostPants> pants) {
+    public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
-        this.pants = pants;
+        this.posts = posts;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.wardrobe_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PostPants pant = pants.get(position);
-        holder.bind(pant);
+        Post post = posts.get(position);
+        holder.bind(post);
     }
 
     @Override
     public int getItemCount() {
-        return pants.size();
+        return posts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView tvUser;
+        private TextView tvDescription;
         private ImageView ivPost;
-        private TextView tvColor;
-        private TextView tvLength;
-        private TextView tvThickness;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
-            tvColor = itemView.findViewById(R.id.tvColor);
-            tvLength = itemView.findViewById(R.id.tvLength);
-            tvThickness = itemView.findViewById(R.id.tvThickness);
         }
 
-        public void bind(PostPants pant) {
-            ParseFile image = pant.getImage();
+        public void bind(Post post) {
+            tvDescription.setText(post.getDescription());
+            tvUser.setText(post.getUser().getUsername());
+            ParseFile image = post.getImage();
             if(image != null)
-                Glide.with(context).load(pant.getImage().getUrl()).into(ivPost);
-            tvColor.setText(pant.getColor());
-            tvLength.setText(pant.getLength());
-            tvThickness.setText(pant.getThickness());
+                Glide.with(context).load(post.getImage().getUrl()).into(ivPost);
         }
     }
     public void clear() {
-        pants.clear();
+        posts.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
-    public void addAll(List<PostPants> list) {
-        pants.addAll(list);
+    public void addAll(List<Post> list) {
+        posts.addAll(list);
         notifyDataSetChanged();
     }
 }

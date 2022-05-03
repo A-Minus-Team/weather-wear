@@ -1,4 +1,4 @@
-package com.example.parsagram;
+package com.example.parsagram.models;
 
 import com.parse.Parse;
 import com.parse.ParseClassName;

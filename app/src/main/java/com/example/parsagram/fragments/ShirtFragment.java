@@ -27,7 +27,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
-import com.example.parsagram.PostShirt;
+import com.example.parsagram.models.PostShirt;
 import com.example.parsagram.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;

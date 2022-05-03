@@ -14,13 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.parsagram.PostPants;
-import com.example.parsagram.PostPantsAdapter;
-import com.example.parsagram.PostShirt;
-import com.example.parsagram.PostShirtAdapter;
+import com.example.parsagram.models.PostPants;
+import com.example.parsagram.models.PostShirt;
 import com.example.parsagram.R;
-import com.example.parsagram.ViewPantsAdapter;
-import com.example.parsagram.ViewShirtAdapter;
+import com.example.parsagram.adapters.ViewPantsAdapter;
+import com.example.parsagram.adapters.ViewShirtAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

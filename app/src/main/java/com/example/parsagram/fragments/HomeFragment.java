@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.parsagram.LoginActivity;
-import com.example.parsagram.PostPants;
-import com.example.parsagram.PostPantsAdapter;
-import com.example.parsagram.PostShirt;
-import com.example.parsagram.PostShirtAdapter;
+import com.example.parsagram.models.PostPants;
+import com.example.parsagram.adapters.PostPantsAdapter;
+import com.example.parsagram.models.PostShirt;
+import com.example.parsagram.adapters.PostShirtAdapter;
 import com.example.parsagram.R;
 import com.example.parsagram.WeatherActivity;
 import com.parse.FindCallback;
@@ -32,7 +31,6 @@ import org.json.simple.JSONObject;
 
 //import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

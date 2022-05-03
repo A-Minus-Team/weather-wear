@@ -1,5 +1,8 @@
-package com.example.parsagram;
+package com.example.parsagram.models;
 
+import com.example.parsagram.models.PostPants;
+import com.example.parsagram.models.PostShirt;
+import com.example.parsagram.models.Zipcode;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
