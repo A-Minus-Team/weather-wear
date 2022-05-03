@@ -24,6 +24,7 @@ import com.example.parsagram.WeatherActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -160,7 +161,7 @@ public class HomeFragment extends Fragment {
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         query.setLimit(20);
-        query.include(PostShirt.KEY_USER); // how does this work?
+        query.whereEqualTo("userShirt", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
             public void done(List<PostShirt> shirts, ParseException e) {
@@ -169,7 +170,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 for(PostShirt shirt:shirts) {
-                    Log.i(TAG, "Post: " + shirt.getColor());
+                    Log.i(TAG, "Shirt length: " + shirt.getLength());
                 }
                 allShirts.addAll(shirts);
                 adapterShirts.notifyDataSetChanged();
@@ -180,7 +181,7 @@ public class HomeFragment extends Fragment {
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         query.setLimit(20);
-        query.include(PostShirt.KEY_USER); // how does this work?
+        query.whereEqualTo("userPants", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
             public void done(List<PostPants> pants, ParseException e) {
@@ -189,7 +190,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 for(PostPants pant:pants) {
-                    Log.i(TAG, "Post: " + pant.getColor());
+                    Log.i(TAG, "Pant length: " + pant.getLength());
                 }
                 allPants.addAll(pants);
                 adapterPants.notifyDataSetChanged();
