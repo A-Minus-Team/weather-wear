@@ -169,7 +169,13 @@ public class HomeFragment extends Fragment {
                     Log.i(TAG, "zips " + zip.getZipcode());
                 }
                 // Get latitude and longitude
-                String[] latLong = latLong(zipcodes.get(0).getZipcode());
+                String[] latLong;
+                // Default zipcode if not exist
+                if (zipcodes.size() == 0) {
+                    latLong = latLong("07102");
+                } else {
+                    latLong = latLong(zipcodes.get(0).getZipcode());
+                }
                 Log.i(TAG, latLong[0] + " : " + latLong[1]);
 
                 // Then get weather for lat and long
@@ -218,10 +224,12 @@ public class HomeFragment extends Fragment {
                 }
                 // Logic to randomly pick a shirt
                 int size = shirts.size();
-                int rand = generateRandomNum(0, size);
-                PostShirt randomShirt = shirts.get(rand);
-                allShirts.add(randomShirt);
-                adapterShirts.notifyDataSetChanged();
+                if (size != 0) {
+                    int rand = generateRandomNum(0, size);
+                    PostShirt randomShirt = shirts.get(rand);
+                    allShirts.add(randomShirt);
+                    adapterShirts.notifyDataSetChanged();
+                }
             }
         });
     }
@@ -254,10 +262,12 @@ public class HomeFragment extends Fragment {
                 }
                 // Logic to randomly pick a shirt
                 int size = pants.size();
-                int rand = generateRandomNum(0, size);
-                PostPants randomPant = pants.get(rand);
-                allPants.add(randomPant);
-                adapterPants.notifyDataSetChanged();
+                if (size != 0) {
+                    int rand = generateRandomNum(0, size);
+                    PostPants randomPant = pants.get(rand);
+                    allPants.add(randomPant);
+                    adapterPants.notifyDataSetChanged();
+                }
             }
         });
     }
