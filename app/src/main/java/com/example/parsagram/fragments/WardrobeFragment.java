@@ -93,7 +93,7 @@ public class WardrobeFragment extends Fragment {
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         query.setLimit(20);
-        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.whereEqualTo("userShirt", ParseUser.getCurrentUser());
         query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
@@ -114,7 +114,7 @@ public class WardrobeFragment extends Fragment {
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         query.setLimit(20);
-        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.whereEqualTo("userPants", ParseUser.getCurrentUser());
         query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
