@@ -39,13 +39,13 @@
 
     <Button
         android:id="@+id/btnSubmitPants"
-        android:layout_width="120dp"
+        android:layout_width="141dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="155dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginEnd="135dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="#231539"
         android:text="Submit"
