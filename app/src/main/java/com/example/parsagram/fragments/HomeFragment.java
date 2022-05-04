@@ -65,6 +65,18 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public String callColorShirt(){
+        //start of color algo
+        int random = generateRandomNum(1, 10);
+        String randColor = randomColor(random); //this is for shirt
+        return randColor;
+    }
+    public String callColorPants(String two){
+        String[] colorPair = colorPairList(two);
+        String otherColor = generateColorPair(colorPair); //this is for pants
+        return otherColor;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,7 +128,7 @@ public class HomeFragment extends Fragment {
                 // Remember to CLEAR OUT old items before appending in the new ones
                 adapterShirts.clear();
                 // ...the data has come back, add new items to your adapterShirts...
-                queryShirts();
+                queryShirts(callColorShirt());
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainerShirts.setRefreshing(false);
             }
@@ -130,7 +142,7 @@ public class HomeFragment extends Fragment {
                 // Remember to CLEAR OUT old items before appending in the new ones
                 adapterPants.clear();
                 // ...the data has come back, add new items to your adapterShirts...
-                queryPants();
+                queryPants(callColorPants(callColorShirt()));
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainerPants.setRefreshing(false);
             }
@@ -169,15 +181,16 @@ public class HomeFragment extends Fragment {
                 tvTemperature.setText(temperature);
                 tvDescription.setText(description);
 
-                queryShirts();
-                queryPants();
+                queryShirts(callColorShirt());
+                queryPants(callColorPants(callColorShirt()));
             }
         });
 
     }
 
 
-    protected void queryShirts() {
+    protected void queryShirts(String color) {
+
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         // Only get 1 item, the first in the database
         query.setLimit(20);
@@ -186,9 +199,15 @@ public class HomeFragment extends Fragment {
         if (temp > 65.00) {
             Log.i(TAG, "Short Shirt: " + temp);
             query.whereEqualTo("size", "Short");
+
+            Log.i(TAG, "The shirt color is: " + color);
+            query.whereEqualTo("color", color);
         } else {
             Log.i(TAG, "Long Shirt: " + temp);
             query.whereEqualTo("size", "Long");
+
+            Log.i(TAG, "The shirt color is: " + color);
+            query.whereEqualTo("color", color);
         }
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
@@ -207,7 +226,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    protected void queryPants() {
+    protected void queryPants(String color) {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         // Only get 1 item, the first in the database
         query.setLimit(20);
@@ -216,9 +235,15 @@ public class HomeFragment extends Fragment {
         if (temp > 65.00) {
             Log.i(TAG, "Short Pant: " + temp);
             query.whereEqualTo("size", "Short");
+
+            Log.i(TAG, "The pants color is: " + color);
+            query.whereEqualTo("color", color);
         } else {
             Log.i(TAG, "Long Pant: " + temp);
             query.whereEqualTo("size", "Long");
+
+            Log.i(TAG, "The pants color is: " + color);
+            query.whereEqualTo("color", color);
         }
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
