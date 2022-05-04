@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment {
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         // Only get 1 item, the first in the database
-        query.setLimit(1);
+        query.setLimit(20);
         query.whereEqualTo("userShirt", ParseUser.getCurrentUser());
         // Logic for filtering based on temperature
         if (temp > 65.00) {
@@ -201,7 +201,11 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "Query error", e);
                     return;
                 }
-                allShirts.addAll(shirts);
+                // Logic to randomly pick a shirt
+                int size = shirts.size();
+                int rand = generateRandomNum(0, size);
+                PostShirt randomShirt = shirts.get(rand);
+                allShirts.add(randomShirt);
                 adapterShirts.notifyDataSetChanged();
             }
         });
@@ -228,6 +232,11 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 allPants.addAll(pants);
+                // Logic to randomly pick a shirt
+                int size = pants.size();
+                int rand = generateRandomNum(0, size);
+                PostPants randomPant = pants.get(rand);
+                allPants.add(randomPant);
                 adapterPants.notifyDataSetChanged();
             }
         });
@@ -371,7 +380,7 @@ public class HomeFragment extends Fragment {
     //generate a random number to determine a random color
     public int generateRandomNum(int min, int max){
         Random random = new Random();
-        return random.nextInt(max - min + 1) + min;
+        return random.nextInt(max - min) + min;
     }
 
 
