@@ -1,4 +1,4 @@
-package com.example.parsagram;
+package com.example.parsagram.models;
 
 import com.parse.Parse;
 import com.parse.ParseClassName;
@@ -8,11 +8,11 @@ import com.parse.ParseUser;
 
 import java.util.Date;
 
-@ParseClassName("postShirt")
-public class PostShirt extends ParseObject {
+@ParseClassName("postPants")
+public class PostPants extends ParseObject {
 
-    public static final String KEY_IMAGE = "shirtImage";
-    public static final String KEY_USER = "userShirt";
+    public static final String KEY_IMAGE = "pantsImage";
+    public static final String KEY_USER = "userPants";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_COLOR = "color";
     public static final String KEY_LENGTH = "size";

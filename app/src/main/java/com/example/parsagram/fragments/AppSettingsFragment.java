@@ -17,15 +17,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.parsagram.LoginActivity;
-import com.example.parsagram.PostShirt;
 import com.example.parsagram.R;
-import com.example.parsagram.Zipcode;
+import com.example.parsagram.models.Zipcode;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
