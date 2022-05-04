@@ -39,6 +39,9 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 **Optional Nice-to-have Stories**
 
 * Automatic color detector if picture is uploaded
+* ~~Recommend outfit based on temperature~~
+* ~~Color Matching Algorithm for recommendation~~
+* ~~Application setting page~~
 * Favorite certain outfits you like
 * Favorite outfits will be recommended 
 * Block certain outfits so you won't get that combination ever
