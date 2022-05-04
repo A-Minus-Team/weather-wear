@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
 
                 // Then get weather for lat and long
                 String[] weather = currentWeather(latLong[0], latLong[1]);
-                if (weather[0] != "") {
+                if (weather[0] != "" && weather[1] != "") {
                     Log.i(TAG, "temp: " + weather[0]);
                     temp = Double.parseDouble(weather[0]);
                     String temperature = weather[0] + " °F";
