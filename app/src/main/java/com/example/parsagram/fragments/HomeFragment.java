@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeContainerPants;
     protected List<PostShirt> allShirts;
     protected List<PostPants> allPants;
+    private double temp;
     private TextView tvTemperature;
     private TextView tvDescription;
     private JSONArray daily;
@@ -102,9 +103,6 @@ public class HomeFragment extends Fragment {
                 sevenDay(v);
             }
         });*/
-
-        queryShirts();
-        queryPants();
 
         swipeContainerShirts = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainerShirts);
         swipeContainerPants = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainerPants);
@@ -168,11 +166,15 @@ public class HomeFragment extends Fragment {
 
                 // Then get weather for lat and long
                 String[] weather = currentWeather(latLong[0], latLong[1]);
+                Log.i(TAG, "temp: " + weather[0]);
+                temp = Double.parseDouble(weather[0]);
                 String temperature = weather[0] + " °F";
                 String description = weather[1];
                 tvTemperature.setText(temperature);
                 tvDescription.setText(description);
 
+                queryShirts();
+                queryPants();
             }
         });
 
@@ -181,8 +183,16 @@ public class HomeFragment extends Fragment {
 
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
-        query.setLimit(20);
+        query.setLimit(1);
         query.whereEqualTo("userShirt", ParseUser.getCurrentUser());
+        // Logic for filtering based on temperature
+        if (temp > 65.00) {
+            Log.i(TAG, "Short Shirt: " + temp);
+            query.whereEqualTo("size", "Short");
+        } else {
+            Log.i(TAG, "Long Shirt: " + temp);
+            query.whereEqualTo("size", "Long");
+        }
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
             public void done(List<PostShirt> shirts, ParseException e) {
@@ -198,8 +208,16 @@ public class HomeFragment extends Fragment {
 
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
-        query.setLimit(20);
+        query.setLimit(1);
         query.whereEqualTo("userPants", ParseUser.getCurrentUser());
+        // Logic for filtering based on temperature
+        if (temp > 65.00) {
+            Log.i(TAG, "Short Pant: " + temp);
+            query.whereEqualTo("size", "Short");
+        } else {
+            Log.i(TAG, "Long Pant: " + temp);
+            query.whereEqualTo("size", "Long");
+        }
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
             public void done(List<PostPants> pants, ParseException e) {
