@@ -183,6 +183,7 @@ public class HomeFragment extends Fragment {
 
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
+        // Only get 1 item, the first in the database
         query.setLimit(1);
         query.whereEqualTo("userShirt", ParseUser.getCurrentUser());
         // Logic for filtering based on temperature
@@ -208,6 +209,7 @@ public class HomeFragment extends Fragment {
 
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
+        // Only get 1 item, the first in the database
         query.setLimit(1);
         query.whereEqualTo("userPants", ParseUser.getCurrentUser());
         // Logic for filtering based on temperature
