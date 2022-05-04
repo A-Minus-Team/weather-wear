@@ -34,7 +34,7 @@
         android:layout_marginTop="200dp"
         android:layout_marginStart="155dp"
         android:layout_marginEnd="155dp"
-        android:backgroundTint="#f72177"
+        android:backgroundTint="#231539"
         android:text="Add" />
 
     <Button
@@ -47,7 +47,7 @@
         android:layout_marginStart="155dp"
         android:layout_marginEnd="155dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#f72177"
+        android:backgroundTint="#231539"
         android:text="Submit"
         android:visibility="visible" />
 
