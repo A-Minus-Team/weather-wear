@@ -58,9 +58,7 @@ public class HomeFragment extends Fragment {
     private JSONArray daily;
     private String weatherKey = "df4e0b5f52ecc79b45178eb254a901eb";
     private String zipcodeKey = "LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88";
-    private String zipcode;
-    //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=11%20Wall%20St,%20New%20York,%20NY%2010005
-    //https://geocode.search.hereapi.com/v1/geocode?apiKey=LoTK4jQ-CyKwOXAGfsoo1bbxVu1MgQiSuZttF6yXD88&q=07010,%20usa
+    private List<Zipcode> zipcode;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,6 +82,7 @@ public class HomeFragment extends Fragment {
         tvDescription = view.findViewById(R.id.tvDescription);
         allShirts = new ArrayList<>();
         allPants = new ArrayList<>();
+        zipcode = new ArrayList<>();
         adapterShirts = new PostShirtAdapter(getContext(), allShirts);
         adapterPants = new PostPantsAdapter(getContext(), allPants);
 
@@ -94,19 +93,9 @@ public class HomeFragment extends Fragment {
         rvPants.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Get zipcode of user
-        zipcode = queryZipcode();
+        queryZipcode();
 
-        // Get latitude and longitude
-        String[] latLong = latLong(zipcode);
-        Log.i(TAG, latLong[0] + " : " + latLong[1]);
-
-        // Then get weather for lat and long
-        String[] weather = currentWeather(latLong[0], latLong[1]);
-        String temperature = weather[0] + " °F";
-        String description = weather[1];
-        tvTemperature.setText(temperature);
-        tvDescription.setText(description);
-
+        // Backlog: 7 day temperature
         /*tvTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,8 +148,7 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
-    protected String queryZipcode() {
-        final String[] zipcode = {""};
+    protected void queryZipcode() {
         ParseQuery<Zipcode> query = ParseQuery.getQuery(Zipcode.class);
         query.setLimit(1);
         query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -172,13 +160,22 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 for (Zipcode zip:zipcodes) {
-                    zipcode[0] = zip.getZipcode();
-                    Log.i(TAG, "Zipcode: " + zipcode[0]);
+                    Log.i(TAG, "zips " + zip.getZipcode());
                 }
+                // Get latitude and longitude
+                String[] latLong = latLong(zipcodes.get(0).getZipcode());
+                Log.i(TAG, latLong[0] + " : " + latLong[1]);
+
+                // Then get weather for lat and long
+                String[] weather = currentWeather(latLong[0], latLong[1]);
+                String temperature = weather[0] + " °F";
+                String description = weather[1];
+                tvTemperature.setText(temperature);
+                tvDescription.setText(description);
 
             }
         });
-        return zipcode[0];
+
     }
 
 
@@ -192,9 +189,6 @@ public class HomeFragment extends Fragment {
                 if(e != null) {
                     Log.e(TAG, "Query error", e);
                     return;
-                }
-                for(PostShirt shirt:shirts) {
-                    Log.i(TAG, "Shirt length: " + shirt.getLength());
                 }
                 allShirts.addAll(shirts);
                 adapterShirts.notifyDataSetChanged();
@@ -212,9 +206,6 @@ public class HomeFragment extends Fragment {
                 if(e != null) {
                     Log.e(TAG, "Query error", e);
                     return;
-                }
-                for(PostPants pant:pants) {
-                    Log.i(TAG, "Pant length: " + pant.getLength());
                 }
                 allPants.addAll(pants);
                 adapterPants.notifyDataSetChanged();
