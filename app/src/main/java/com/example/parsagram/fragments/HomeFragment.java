@@ -117,8 +117,6 @@ public class HomeFragment extends Fragment {
                 adapterShirts.clear();
                 // ...the data has come back, add new items to your adapterShirts...
                 queryShirts();
-
-
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainerShirts.setRefreshing(false);
             }
@@ -130,11 +128,9 @@ public class HomeFragment extends Fragment {
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 // Remember to CLEAR OUT old items before appending in the new ones
-                adapterShirts.clear();
+                adapterPants.clear();
                 // ...the data has come back, add new items to your adapterShirts...
-                queryShirts();
-
-
+                queryPants();
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainerPants.setRefreshing(false);
             }
