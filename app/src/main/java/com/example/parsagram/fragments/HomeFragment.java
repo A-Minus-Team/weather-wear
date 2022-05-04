@@ -214,7 +214,7 @@ public class HomeFragment extends Fragment {
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         // Only get 1 item, the first in the database
-        query.setLimit(1);
+        query.setLimit(20);
         query.whereEqualTo("userPants", ParseUser.getCurrentUser());
         // Logic for filtering based on temperature
         if (temp > 65.00) {
@@ -231,7 +231,6 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "Query error", e);
                     return;
                 }
-                allPants.addAll(pants);
                 // Logic to randomly pick a shirt
                 int size = pants.size();
                 int rand = generateRandomNum(0, size);
