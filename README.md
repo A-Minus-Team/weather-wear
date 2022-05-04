@@ -30,10 +30,11 @@ Weather Wear is a lifestyle app that recommends an outfit to the user based off 
 
 * ~~Login~~
 * ~~Register~~
-* ~~Homepage where you can~~ view weather ~~and reccomended outfit~~
-* 7-day forecast and hour by hour weather breakdown
-* Ability to change reccomended outfit
+* ~~Homepage where you can~~ ~~view weather~~ ~~and reccomended outfit~~
+* ~~7-day forecast and hour by hour weather breakdown~~
+* ~~Ability to change reccomended outfit~~
 * ~~Upload new clothes~~
+* ~~Upload zipcode to change location~~
 
 **Optional Nice-to-have Stories**
 
@@ -161,3 +162,6 @@ Milestone 2: Homepage now displays temperature info
 
 ## User settings and ability to change zip code
 ![Animation](https://user-images.githubusercontent.com/50147938/165433504-e4e32cf3-0770-44d5-a550-54167b491498.gif)
+
+## Finalized everything, proper display, ui improvement, etc
+<img src='http://g.recordit.co/PsMUu0qtWT.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
