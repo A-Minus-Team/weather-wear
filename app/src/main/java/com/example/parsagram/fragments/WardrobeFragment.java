@@ -22,6 +22,7 @@ import com.example.parsagram.adapters.ViewShirtAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,7 @@ public class WardrobeFragment extends Fragment {
     protected void queryShirts() {
         ParseQuery<PostShirt> query = ParseQuery.getQuery(PostShirt.class);
         query.setLimit(20);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostShirt>() {
             @Override
@@ -112,6 +114,7 @@ public class WardrobeFragment extends Fragment {
     protected void queryPants() {
         ParseQuery<PostPants> query = ParseQuery.getQuery(PostPants.class);
         query.setLimit(20);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.include(PostShirt.KEY_USER); // how does this work?
         query.findInBackground(new FindCallback<PostPants>() {
             @Override
